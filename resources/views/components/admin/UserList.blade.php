@@ -34,10 +34,12 @@
                     $2999
                 </td>
                 <td class="px-6 py-4 text-center">
-                    <a href="#" class="px-4 py-1 text-sm text-blue-600 hover:bg-blue-200 rounded-full">{{ __('Edit') }}</a>
+                    <a href="#"
+                        class="px-4 py-1 text-sm text-blue-600 rounded-full hover:bg-blue-200">{{ __('Edit') }}</a>
                 </td>
                 <td class="px-6 py-4 text-center">
-                    <a href="#" class="px-4 py-1 text-sm text-red-400 hover:bg-red-200 rounded-full">{{ __('Delete') }}</a>
+                    <a href="#"
+                        class="px-4 py-1 text-sm text-red-400 rounded-full hover:bg-red-200">{{ __('Delete') }}</a>
                 </td>
             </tr>
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -54,10 +56,12 @@
                     $1999
                 </td>
                 <td class="px-6 py-4 text-center">
-                    <a href="#" class="px-4 py-1 text-sm text-blue-600 hover:bg-blue-200 rounded-full">{{ __('Edit') }}</a>
+                    <a href="#"
+                        class="px-4 py-1 text-sm text-blue-600 rounded-full hover:bg-blue-200">{{ __('Edit') }}</a>
                 </td>
                 <td class="px-6 py-4 text-center">
-                    <a href="#" class="px-4 py-1 text-sm text-red-400 hover:bg-red-200 rounded-full">{{ __('Delete') }}</a>
+                    <a href="#"
+                        class="px-4 py-1 text-sm text-red-400 rounded-full hover:bg-red-200">{{ __('Delete') }}</a>
                 </td>
             </tr>
             <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -74,10 +78,12 @@
                     $99
                 </td>
                 <td class="px-6 py-4 text-center">
-                    <a href="#" class="px-4 py-1 text-sm text-blue-600 hover:bg-blue-200 rounded-full">{{ __('Edit') }}</a>
+                    <a href="#"
+                        class="px-4 py-1 text-sm text-blue-600 rounded-full hover:bg-blue-200">{{ __('Edit') }}</a>
                 </td>
                 <td class="px-6 py-4 text-center">
-                    <a href="#" class="px-4 py-1 text-sm text-red-400 hover:bg-red-200 rounded-full">{{ __('Delete') }}</a>
+                    <a href="#"
+                        class="px-4 py-1 text-sm text-red-400 rounded-full hover:bg-red-200">{{ __('Delete') }}</a>
                 </td>
             </tr>
         </tbody>
