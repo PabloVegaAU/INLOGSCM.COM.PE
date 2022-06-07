@@ -24,7 +24,8 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'name', 'type',
+        'realname', 'realsurname',
         'email',
         'password',
     ];
@@ -58,4 +59,12 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public static function search($search)
+    {
+        return empty($search) ? static::query()
+            : static::query()->where('name', 'like', '%' . $search . '%')
+            ->orWhere('realname', 'like', '%' . $search . '%')
+            ->orWhere('realsurname', 'like', '%' . $search . '%');
+    }
 }

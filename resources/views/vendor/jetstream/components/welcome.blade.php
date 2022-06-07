@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<{{-- div class="grid grid-cols-1 bg-gray-200 bg-opacity-25 md:grid-cols-2">
+{{-- div class="grid grid-cols-1 bg-gray-200 bg-opacity-25 md:grid-cols-2">
     <div class="p-6">
         <div class="flex items-center">
             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
