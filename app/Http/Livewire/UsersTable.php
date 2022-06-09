@@ -13,12 +13,18 @@ class UsersTable extends Component
     public $search = '';
     public $orderBy = 'id';
     public $orderAsc = true;
+    public $listeners = ['render', 'delete'];
     public function render()
     {
         $users = User::search($this->search)
             ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
-            ->simplePaginate($this->perPage); v
+            ->simplePaginate($this->perPage);
 
         return view('livewire.users-table', compact('users'));
+    }
+
+    public function delete(User $user)
+    {
+        $user->delete();
     }
 }

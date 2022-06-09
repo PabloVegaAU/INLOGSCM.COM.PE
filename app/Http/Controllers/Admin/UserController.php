@@ -44,12 +44,10 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|unique:users|max:255',
             'realname' => 'required|string|max:255',
-            'realsurname' => 'required|string|unique:users|max:255',
+            'realsurname' => 'required|string|max:255',
             'email' => 'required|email|unique:users|max:255',
             'password' => $this->passwordRules()
-        ]);
-
-
+        ])->validate();
 
         User::create([
             'name' => $request->name,
@@ -82,7 +80,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        /* return $user; */
+        return view('admin.user.edit', compact('user'));
     }
 
     /**
@@ -94,7 +93,23 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|unique:users,id|max:255',
+            'realname' => 'required|string|max:255',
+            'realsurname' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,id|max:255',
+            'password' => 'confirmed'
+        ])->validate();
+
+        $user->update([
+            'name' => $request->name,
+            'type' => 'operario',
+            'realname' => $request->realname,
+            'realsurname' => $request->realsurname,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
+        return redirect()->route('admin.users.index')->with('message', __('Edited Successfully') . '!!');
     }
 
     /**

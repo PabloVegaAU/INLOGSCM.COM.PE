@@ -13,4 +13,12 @@ class Product extends Model
     {
         return $this->belongsTo(Inventory::class);
     }
+
+
+    public static function search($search)
+    {
+        return empty($search) ? static::query()
+            : static::query()->where('id', 'like', '%' . $search . '%')
+            ->orWhere('name', 'like', '%' . $search . '%');
+    }
 }

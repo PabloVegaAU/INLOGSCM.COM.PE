@@ -23,6 +23,6 @@ class UserCreate extends Component
      */
     public function render()
     {
-        return view('components.admin.UserCreate');
+        return view('components.admin.user-create');
     }
 }

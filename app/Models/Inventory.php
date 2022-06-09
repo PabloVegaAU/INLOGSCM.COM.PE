@@ -13,4 +13,11 @@ class Inventory extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public static function search($search)
+    {
+        return empty($search) ? static::query()
+            : static::query()->where('id', 'like', '%' . $search . '%')
+            ->orWhere('code', 'like', '%' . $search . '%');
+    }
 }
