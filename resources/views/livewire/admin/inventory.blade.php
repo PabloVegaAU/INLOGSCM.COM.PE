@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    @if ($users->count())
+    @if ($inventories->count())
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-md  text-gray-700 uppercase bg-emerald-200 ">
@@ -61,7 +61,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
+                    @foreach ($inventories as $user)
                         <tr class="transition duration-300 ease-in-out bg-white border-b hover:bg-gray-100">
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">

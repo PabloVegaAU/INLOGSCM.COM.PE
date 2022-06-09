@@ -2,8 +2,9 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\Inventory;
+use App\Models\Inventory as ModelsInventory;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Inventory extends Component
 {
@@ -13,17 +14,18 @@ class Inventory extends Component
     public $orderBy = 'id';
     public $orderAsc = true;
     public $listeners = ['render', 'delete'];
-    public function render()
 
-    public function delete(Inventory $inventory){
+
+    public function delete(ModelsInventory $inventory)
+    {
         $inventory->delete();
     }
-    
+
     public function render()
     {
-        $inventories = Inventory::search($this->search)
+        $inventories = ModelsInventory::search($this->search)
             ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
             ->simplePaginate($this->perPage);
-        return view('livewire.admin.inventory');
+        return view('livewire.admin.inventory',compact('inventories'));
     }
 }
