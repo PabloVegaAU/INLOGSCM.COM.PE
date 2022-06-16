@@ -9,6 +9,15 @@ class Inventory extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'code', 'ubication', 'barcode', 'status'
+    ];
+
     public function products()
     {
         return $this->hasMany(Product::class);

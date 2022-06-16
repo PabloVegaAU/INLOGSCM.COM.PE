@@ -13,12 +13,16 @@ class Inventory extends Component
     public $search = '';
     public $orderBy = 'id';
     public $orderAsc = true;
-    public $listeners = ['render', 'delete'];
-
+    protected $listeners = ['render', 'delete'];
 
     public function delete(ModelsInventory $inventory)
     {
         $inventory->delete();
+    }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
     }
 
     public function render()
@@ -26,6 +30,6 @@ class Inventory extends Component
         $inventories = ModelsInventory::search($this->search)
             ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
             ->simplePaginate($this->perPage);
-        return view('livewire.admin.inventory',compact('inventories'));
+        return view('livewire.admin.inventory', compact('inventories'));
     }
 }

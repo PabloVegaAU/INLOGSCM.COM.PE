@@ -1,12 +1,12 @@
 <div>
     <div class="flex flex-wrap w-full mb-4">
-        <div class="w-full mx-auto md:w-6/12 md:mb-0">
+        <div class="w-full mx-auto md:w-6/12 mb-4 md:mb-0">
             <x-jet-input wire:model.debounce.300ms="search" type="text"
                 class="flex-1 block w-full border-gray-300 rounded-md focus:ring-emerald-400 focus:border-emerald-400 sm:text-sm"
                 placeholder="Search users..." />
 
         </div>
-        <div class="relative w-4/12 mx-auto md:w-2/12">
+        <div class="relative w-4/12 mx-auto md:w-2/12 md:mb-0">
             <select wire:model="orderBy"
                 class="block w-full px-3 py-2 capitalize bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-400 focus:border-emerald-400 sm:text-sm"
                 id="grid-state">
@@ -44,14 +44,16 @@
                 <thead class="text-md  text-gray-700 uppercase bg-emerald-200 ">
                     <tr>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
-                            {{ __('user') }}
+                            {{ __('code') }}
                         </th>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
-                            {{ __('Name') }}
-                            {{ __('surname') }}
+                            {{ __('ubication') }}
                         </th>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
-                            Email</th>
+                            {{ __('barcode') }}
+                        </th>
+                        <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
+                            {{ __('status') }}
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
                             Created At
                         </th>
@@ -61,23 +63,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($inventories as $user)
+                    @foreach ($inventories as $inventory)
                         <tr class="transition duration-300 ease-in-out bg-white border-b hover:bg-gray-100">
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $user->name }}</td>
+                                {{ $inventory->code }}</td>
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $user->realname }} {{ __('and') }}
-                                {{ $user->realsurname }}
+                                {{ $inventory->ubication }}
                             </td>
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $user->email }}</td>
+                                {{ $inventory->barcode }}
+                            </td>
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $user->created_at->diffForHumans() }}</td>
-                            <td class="px-6 py-3 text-center">
+                                {{ $inventory->status }}</td>
+                            <td
+                                class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
+                                {{ $inventory->created_at->diffForHumans() }}</td>
+                            <td class="px-6 py-3">
                                 <div class="flex justify-center item-center">
                                     <a>
                                         <button class="w-4 mr-2 transform hover:text-purple-500 hover:scale-150">
@@ -90,16 +95,8 @@
                                             </svg>
                                         </button>
                                     </a>
-                                    <a href="{{ route('admin.users.edit', $user) }}">
-                                        <button class="w-4 mr-2 transform hover:text-blue-500 hover:scale-150">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                            </svg>
-                                        </button>
-                                    </a>
-                                    <a wire:click="$emit('deleteUser',{{ $user->id }})">
+                                    @livewire('admin.edit-inventory', ['inventory' => $inventory], key($inventory->id))
+                                    <a wire:click="$emit('deleteInventory',{{ $inventory->id }})">
                                         <button class="w-4 mr-2 transform hover:text-red-500 hover:scale-150">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke="currentColor">
@@ -115,7 +112,7 @@
                 </tbody>
             </table>
         </div>
-        {!! $users->links() !!}
+        {!! $inventories->links() !!}
     @else
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <p class="w-full text-left  bg-emerald-300 text-gray-600 px-6 py-4 text-lg">No users found</p>
@@ -126,22 +123,40 @@
 
 @push('js')
     <script>
-        Livewire.on('deleteUser', userId => {
+        Livewire.on('add', function() {
+            Swal.fire(
+                `{{ __('Created Successfully') }}`,
+                `{{ __('A') }}`,
+                'success',
+            );
+        });
+    </script>
+    <script>
+        Livewire.on('edit', function() {
+            Swal.fire(
+                `{{ __('Edited Successfully') }}`,
+                `{{ __('A') }}`,
+                'success',
+            );
+        });
+    </script>
+    <script>
+        Livewire.on('deleteInventory', inventoryId => {
             Swal.fire({
-                title: '{{ __('Are you sure?') }}',
+                title: `{{ __('Are you sure?') }}`,
                 text: `{{ __("You won't be able to revert this!") }}`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: '{{ __('¡Sí, bórralo!') }}',
-                cancelButtonText: '{{ __('Cancel') }}'
+                confirmButtonText: `{{ __('Yes, delete it!') }}`,
+                cancelButtonText: `{{ __('Cancel') }}`
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emitTo('users-table', 'delete', userId);
+                    Livewire.emitTo('admin.inventory', 'delete', inventoryId);
                     Swal.fire(
                         '{{ __('Deleted!') }}!',
-                        '{{ __('The operator was successfully eliminated') }}',
+                        '{{ __('The Inventory was successfully eliminated') }}',
                         'success'
                     )
                 }
