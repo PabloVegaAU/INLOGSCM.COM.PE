@@ -48,7 +48,7 @@ class InventoryController extends Controller
      */
     public function show(Inventory $inventory)
     {
-        //
+        return view('admin.product.import',compact('inventory'));
     }
 
     /**

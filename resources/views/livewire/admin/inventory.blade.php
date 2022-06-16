@@ -84,7 +84,7 @@
                                 {{ $inventory->created_at->diffForHumans() }}</td>
                             <td class="px-6 py-3">
                                 <div class="flex justify-center item-center">
-                                    <a>
+                                    <a href="{{ route('admin.inventories.show', $inventory) }}">
                                         <button class="w-4 mr-2 transform hover:text-purple-500 hover:scale-150">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke="currentColor">
