@@ -63,28 +63,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($inventories as $inventory)
+                    @foreach ($inventories as $itemInven)
                         <tr class="transition duration-300 ease-in-out bg-white border-b hover:bg-gray-100">
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $inventory->code }}</td>
+                                {{ $itemInven->code }}</td>
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $inventory->ubication }}
+                                {{ $itemInven->ubication }}
                             </td>
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $inventory->barcode }}
+                                {{ $itemInven->barcode }}
                             </td>
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $inventory->status }}</td>
+                                {{ $itemInven->status }}</td>
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $inventory->created_at->diffForHumans() }}</td>
+                                {{ $itemInven->created_at->diffForHumans() }}</td>
                             <td class="px-6 py-3">
                                 <div class="flex justify-center item-center">
-                                    <a>
+                                    <a wire:click="showInventory({{ $itemInven }})">
                                         <button class="w-4 mr-2 transform hover:text-purple-500 hover:scale-150">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke="currentColor">
@@ -95,8 +95,17 @@
                                             </svg>
                                         </button>
                                     </a>
-                                    @livewire('admin.edit-inventory', ['inventory' => $inventory], key($inventory->id))
-                                    <a wire:click="$emit('deleteInventory',{{ $inventory->id }})">
+                                    {{-- @livewire('admin.edit-inventory', ['inventory' => $inventory], key($inventory->id)) --}}
+                                    <a wire:click="editInventory({{ $itemInven }})">
+                                        <button class="w-4 mr-2 transform hover:text-blue-500 hover:scale-150">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                            </svg>
+                                        </button>
+                                    </a>
+                                    <a wire:click="$emit('deleteInventory',{{ $itemInven->id }})">
                                         <button class="w-4 mr-2 transform hover:text-red-500 hover:scale-150">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke="currentColor">
@@ -112,14 +121,61 @@
                 </tbody>
             </table>
         </div>
-        {!! $inventories->links() !!}
+        @if ($inventories->hasPages())
+            {!! $inventories->links() !!}
+        @endif
     @else
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <p class="w-full text-left  bg-emerald-300 text-gray-600 px-6 py-4 text-lg">No users found</p>
         </div>
     @endif
-
 </div>
+
+{{-- MODAL --}}
+<x-jet-dialog-modal wire:model="open_edit">
+    <x-slot name="title">
+        {{ __('Edit') }}
+    </x-slot>
+    <x-slot name="content">
+        <div class="mb-4">
+            <x-jet-label value="{{ __('Code') }}" />
+            <x-jet-input wire:model="inventory.code" class="w-full" type="text" />
+            @error('inventory.code')
+                <x-jet-input-error for="inventory.code" />
+            @enderror
+        </div>
+        <div class="mb-4">
+            <x-jet-label value="{{ __('Ubication') }}" />
+            <x-jet-input wire:model="inventory.ubication" class="w-full" type="text" />
+            @error('ubication')
+                <x-jet-input-error for="ubication" />
+            @enderror
+        </div>
+        <div class="mb-4">
+            <x-jet-label value="{{ __('Barcode') }}" />
+            <x-jet-input wire:model="inventory.barcode" class="w-full" type="text" />
+            @error('barcode')
+                <x-jet-input-error for="barcode" />
+            @enderror
+        </div>
+        <div class="mb-4">
+            <x-jet-label value="{{ __('Status') }}" />
+            <x-jet-input wire:model="inventory.status" class="w-full" type="text" />
+            @error('status')
+                <x-jet-input-error for="status" />
+            @enderror
+        </div>
+    </x-slot>
+    <x-slot name="footer">
+        <x-jet-danger-button wire:click="$set('open_edit',false)" class="mr-2">
+            {{ __('Close') }}
+        </x-jet-danger-button>
+        <x-jet-danger-button wire:click="updateInventory" wire:loading.remove wire:target='updateInventory'>
+            {{ __('Update') }}
+        </x-jet-danger-button>
+        <span wire:loading wire:target='updateInventory'>{{ __('Loading') . '....' }}</span>
+    </x-slot>
+</x-jet-dialog-modal>
 
 @push('js')
     <script>

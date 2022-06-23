@@ -23,6 +23,13 @@ class AddInventory extends Component
         $this->validateOnly($propertyName);
     }
 
+    public function updatingOpen()
+    {
+        if ($this->open === false) {
+            $this->reset(['open', 'code', 'ubication', 'barcode', 'status']);
+        }
+    }
+
     public function save()
     {
         $this->validate();
