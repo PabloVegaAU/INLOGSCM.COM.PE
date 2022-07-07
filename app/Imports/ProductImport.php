@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class ProductImport implements ToModel
 {
+    
     /**
      * @param array $row
      *
