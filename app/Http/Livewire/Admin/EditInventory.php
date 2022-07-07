@@ -12,9 +12,8 @@ class EditInventory extends Component
     public $inventory;
 
     protected $rules = [
-        'inventory.code' => 'required|max:100',
-        'inventory.ubication' => 'required|max:100',
-        'inventory.barcode' => 'required|max:100',
+        'inventory.name' => 'required|max:100',
+        'inventory.operario' => 'required|max:100',
         'inventory.status' => 'required|max:100',
     ];
 

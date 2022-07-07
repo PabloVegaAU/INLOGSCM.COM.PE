@@ -4,7 +4,6 @@
             <x-jet-input wire:model.debounce.300ms="search" type="text"
                 class="flex-1 block w-full border-gray-300 rounded-md focus:ring-emerald-400 focus:border-emerald-400 sm:text-sm"
                 placeholder="Search users..." />
-
         </div>
         <div class="relative w-4/12 mx-auto md:w-2/12 md:mb-0">
             <select wire:model="orderBy"
@@ -16,7 +15,6 @@
                 <option class="capitalize" value="email">Email</option>
                 <option class="capitalize" value="created_at">Sign Up Date</option>
             </select>
-
         </div>
         <div class="relative w-4/12 mx-1 md:w-2/12">
             <select wire:model="orderAsc"
@@ -44,21 +42,19 @@
                 <thead class="text-md  text-gray-700 uppercase bg-emerald-200 ">
                     <tr>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
-                            {{ __('code') }}
+                            {{ __('Name') }}
                         </th>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
-                            {{ __('ubication') }}
-                        </th>
-                        <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
-                            {{ __('barcode') }}
+                            {{ __('user') }}
                         </th>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
                             {{ __('status') }}
-                        <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
-                            Created At
                         </th>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
-                            Accions
+                            {{ __('Created At') }}
+                        </th>
+                        <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
+                            {{ __('Accions') }}
                         </th>
                     </tr>
                 </thead>
@@ -67,18 +63,15 @@
                         <tr class="transition duration-300 ease-in-out bg-white border-b hover:bg-gray-100">
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $itemInven->code }}</td>
+                                {{ $itemInven->name }}</td>
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $itemInven->ubication }}
+                                {{ $itemInven->user->name }}
                             </td>
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $itemInven->barcode }}
+                                {{ $itemInven->status }}
                             </td>
-                            <td
-                                class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $itemInven->status }}</td>
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
                                 {{ $itemInven->created_at->diffForHumans() }}</td>
@@ -138,17 +131,10 @@
     </x-slot>
     <x-slot name="content">
         <div class="mb-4">
-            <x-jet-label value="{{ __('Code') }}" />
-            <x-jet-input wire:model="inventory.code" class="w-full" type="text" />
-            @error('inventory.code')
-                <x-jet-input-error for="inventory.code" />
-            @enderror
-        </div>
-        <div class="mb-4">
-            <x-jet-label value="{{ __('Ubication') }}" />
-            <x-jet-input wire:model="inventory.ubication" class="w-full" type="text" />
-            @error('ubication')
-                <x-jet-input-error for="ubication" />
+            <x-jet-label value="{{ __('Name') }}" />
+            <x-jet-input wire:model="inventory.name" class="w-full" type="text" />
+            @error('inventory.name')
+                <x-jet-input-error for="inventory.name" />
             @enderror
         </div>
         <div class="mb-4">

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\ProductImport;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InventoryController extends Controller
 {
@@ -37,7 +40,9 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $file = $request->file('file');
+        Excel::import(new ProductImport, $file);
+        return redirect()->route('admin.inventories.index')->with('success', 'Existo?');
     }
 
     /**

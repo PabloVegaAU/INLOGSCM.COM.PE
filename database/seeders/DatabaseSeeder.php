@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Inventory;
+use App\Models\Product;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,6 +25,16 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123'),
         ]);
 
-        User::factory(50)->create();
+        $users = User::factory(9)->create();
+        foreach ($users as $user) {
+            $inventories = Inventory::factory(3)->create(['user_id' => $user->id]);
+            foreach ($inventories as $inventory) {
+                Product::factory(5)->create(
+                    [
+                        'inventory_id' => $inventory->id,
+                    ]
+                );
+            }
+        }
     }
 }

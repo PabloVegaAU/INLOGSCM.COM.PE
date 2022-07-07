@@ -1,16 +1,31 @@
 <div>
-    <button wire:click="$set('open',true)"
-        class="px-4 py-2 mb-4 text-white transition duration-500 border rounded-md select-none  bg-emerald-400 ease hover:bg-emerald-600 focus:outline-none focus:shadow-outline focus:border-emerald-300 focus:ring focus:ring-emerald-200">
-        {{ __('ADD') }}
-    </button>
+    <div class="flex">
+        <button wire:click="$set('open',true)"
+            class="px-4 py-2 mb-4 text-white transition duration-500 border rounded-md select-none  bg-emerald-400 ease hover:bg-emerald-600 focus:outline-none focus:shadow-outline focus:border-emerald-300 focus:ring focus:ring-emerald-200">
+            {{ __('ADD') }}
+        </button>
 
-    <input type="file" name="file" id="file" class="inputfile"
-        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-    <label for="file"
-        class="px-4 py-2 mb-4 text-white transition duration-500 border rounded-md select-none  bg-emerald-400 ease hover:bg-emerald-600 focus:outline-none focus:shadow-outline focus:border-emerald-300 focus:ring focus:ring-emerald-200">
-        {{ __('IMPORT') }}
-    </label>
+        @if (session('success'))
+            {{ session('success') }}
+        @endif
+        
+        @if (isset($errors))
+            @foreach ($errors->all() as $error)
+                {{ $error }}
+            @endforeach
+        @endif
+        <form action="{{ route('admin.inventories.store') }}" method="POST" enctype="multipart/form-data"
+            class="px-4 py-2 mb-4">
+            @csrf
+            <input type="file" name="file" id="file"
+                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+            <button type="submit"
+                class="px-4 py-2 text-white transition duration-500 border rounded-md select-none  bg-emerald-400 ease hover:bg-emerald-600 focus:outline-none focus:shadow-outline focus:border-emerald-300 focus:ring focus:ring-emerald-200">
+                {{ __('IMPORT') }}
+            </button>
+        </form>
 
+    </div>
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
             {{ __('Create new') }}

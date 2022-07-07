@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('ubication');
-            $table->string('barcode');
-            $table->string('status');
+            $table->string('name');
+            //FOREIGN USERS
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('status')->default('not yet');
             $table->timestamps();
         });
     }

@@ -9,13 +9,8 @@ class Inventory extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
     protected $fillable = [
-        'code', 'ubication', 'barcode', 'status'
+        'name', 'user_id', 'status'
     ];
 
     public function products()
@@ -23,10 +18,15 @@ class Inventory extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public static function search($search)
     {
         return empty($search) ? static::query()
-            : static::query()->where('id', 'like', '%' . $search . '%')
-            ->orWhere('code', 'like', '%' . $search . '%');
+            : static::query()->where('status', 'like', '%' . $search . '%')
+            ->orWhere('name', 'like', '%' . $search . '%');
     }
 }

@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('description');
-
             //FOREIGN INVENTORIES
-            $table->foreignId('inventory_id')->constrained()->onDelete('cascade');
+            $table->foreignId('inventory_id')->constrained('inventories')->onDelete('cascade');
+            $table->string('ubication');
+            $table->string('barcode');
+            $table->string('code');
+            $table->string('description');
+            $table->string('stock');
 
             $table->timestamps();
         });

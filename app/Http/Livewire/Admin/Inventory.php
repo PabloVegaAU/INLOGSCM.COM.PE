@@ -39,7 +39,7 @@ class Inventory extends Component
     {
         $inventories = ModelsInventory::search($this->search)
             ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
-            ->simplePaginate($this->perPage);
+            ->Paginate($this->perPage);
         return view('livewire.admin.inventory', compact('inventories'));
     }
 

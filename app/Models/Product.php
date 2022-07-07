@@ -9,11 +9,14 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'inventory_id', 'ubication', 'barcode', 'code', 'description', 'stock'
+    ];
+
     public function inventory()
     {
         return $this->belongsTo(Inventory::class);
     }
-
 
     public static function search($search)
     {

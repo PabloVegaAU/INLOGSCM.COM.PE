@@ -12,24 +12,17 @@
         </x-slot>
         <x-slot name="content">
             <div class="mb-4">
-                <x-jet-label value="{{ __('Code') }}" />
-                <x-jet-input wire:model="inventory.code" class="w-full" type="text" />
-                @error('inventory.code')
-                    <x-jet-input-error for="inventory.code" />
+                <x-jet-label value="{{ __('Name') }}" />
+                <x-jet-input wire:model="inventory.name" class="w-full" type="text" />
+                @error('inventory.name')
+                    <x-jet-input-error for="inventory.name" />
                 @enderror
             </div>
             <div class="mb-4">
-                <x-jet-label value="{{ __('Ubication') }}" />
-                <x-jet-input wire:model="inventory.ubication" class="w-full" type="text" />
-                @error('ubication')
-                    <x-jet-input-error for="ubication" />
-                @enderror
-            </div>
-            <div class="mb-4">
-                <x-jet-label value="{{ __('Barcode') }}" />
-                <x-jet-input wire:model="inventory.barcode" class="w-full" type="text" />
-                @error('barcode')
-                    <x-jet-input-error for="barcode" />
+                <x-jet-label value="{{ __('Operator') }}" />
+                <x-jet-input wire:model="inventory.operator" class="w-full" type="text" />
+                @error('operator')
+                    <x-jet-input-error for="operator" />
                 @enderror
             </div>
             <div class="mb-4">
