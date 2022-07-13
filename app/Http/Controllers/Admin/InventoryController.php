@@ -5,8 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Imports\ProductImport;
 use App\Models\Inventory;
+use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class InventoryController extends Controller
@@ -40,9 +40,12 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
         $file = $request->file('file');
         Excel::import(new ProductImport, $file);
-        return redirect()->route('admin.inventories.index')->with('success', 'Existo?');
+        return redirect()->route('admin.inventories.index')->with('success', 'Existo');
     }
 
     /**
@@ -53,7 +56,8 @@ class InventoryController extends Controller
      */
     public function show(Inventory $inventory)
     {
-        return view('admin.product.import', compact('inventory'));
+        $products = Product::where('inventory_id', $inventory->id)->paginate();
+        return view('livewire.admin.product-import', compact('products'));
     }
 
     /**

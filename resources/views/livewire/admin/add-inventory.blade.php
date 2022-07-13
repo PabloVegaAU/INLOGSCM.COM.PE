@@ -1,26 +1,22 @@
 <div>
+    @if (isset($errors))
+        @foreach ($errors->all() as $error)
+            <div class="text-red-600">{{ $error }}</div>
+        @endforeach
+    @endif
     <div class="flex">
         <button wire:click="$set('open',true)"
-            class="px-4 py-2 mb-4 text-white transition duration-500 border rounded-md select-none  bg-emerald-400 ease hover:bg-emerald-600 focus:outline-none focus:shadow-outline focus:border-emerald-300 focus:ring focus:ring-emerald-200">
+            class="px-4 py-2 mb-4 text-white transition duration-500 border rounded-md select-none bg-emerald-400 ease hover:bg-emerald-600 focus:outline-none focus:shadow-outline focus:border-emerald-300 focus:ring focus:ring-emerald-200">
             {{ __('ADD') }}
         </button>
 
-        @if (session('success'))
-            {{ session('success') }}
-        @endif
-        
-        @if (isset($errors))
-            @foreach ($errors->all() as $error)
-                {{ $error }}
-            @endforeach
-        @endif
         <form action="{{ route('admin.inventories.store') }}" method="POST" enctype="multipart/form-data"
             class="px-4 py-2 mb-4">
             @csrf
-            <input type="file" name="file" id="file"
+            <input type="file" name="file" id="file" required
                 accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
             <button type="submit"
-                class="px-4 py-2 text-white transition duration-500 border rounded-md select-none  bg-emerald-400 ease hover:bg-emerald-600 focus:outline-none focus:shadow-outline focus:border-emerald-300 focus:ring focus:ring-emerald-200">
+                class="px-4 py-2 text-white transition duration-500 border rounded-md select-none bg-emerald-400 ease hover:bg-emerald-600 focus:outline-none focus:shadow-outline focus:border-emerald-300 focus:ring focus:ring-emerald-200">
                 {{ __('IMPORT') }}
             </button>
         </form>
@@ -32,33 +28,47 @@
         </x-slot>
         <x-slot name="content">
             <div class="mb-4">
+                <x-jet-label value="{{ __('name') }}" />
+                <x-jet-input class="w-full" type="text" wire:model='name' />
+                @error('name')
+                    <x-jet-input-error for="name" />
+                @enderror
+            </div>
+            <div class="mb-4">
+                <x-jet-label value="{{ __('user_id') }}" />
+                <x-jet-input class="w-full" type="text" wire:model='user_id' />
+                @error('user_id')
+                    <x-jet-input-error for="user_id" />
+                @enderror
+            </div>
+            {{-- <div class="mb-4">
                 <x-jet-label value="{{ __('Code') }}" />
                 <x-jet-input class="w-full" type="text" wire:model='code' />
                 @error('code')
-                    <x-jet-input-error for="code" />
+                <x-jet-input-error for="code" />
                 @enderror
-            </div>
-            <div class="mb-4">
+            </div> --}}
+            {{-- <div class="mb-4">
                 <x-jet-label value="{{ __('Ubication') }}" />
                 <x-jet-input class="w-full" type="text" wire:model='ubication' />
                 @error('ubication')
-                    <x-jet-input-error for="ubication" />
+                <x-jet-input-error for="ubication" />
                 @enderror
-            </div>
-            <div class="mb-4">
+            </div> --}}
+            {{-- <div class="mb-4">
                 <x-jet-label value="{{ __('Barcode') }}" />
                 <x-jet-input class="w-full" type="text" wire:model='barcode' />
                 @error('barcode')
-                    <x-jet-input-error for="ubication" />
+                <x-jet-input-error for="ubication" />
                 @enderror
-            </div>
-            <div class="mb-4">
+            </div> --}}
+            {{-- <div class="mb-4">
                 <x-jet-label value="{{ __('Status') }}" />
                 <x-jet-input class="w-full" type="text" wire:model='status' />
                 @error('status')
-                    <x-jet-input-error for="ubication" />
+                <x-jet-input-error for="status" />
                 @enderror
-            </div>
+            </div> --}}
         </x-slot>
         <x-slot name="footer">
             <x-jet-danger-button wire:click="$set('open',false)" class="mr-2">

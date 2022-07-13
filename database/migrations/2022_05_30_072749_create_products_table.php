@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('code');
             $table->string('description');
             $table->string('stock');
-
+            $table->integer('checked')->default(0);
             $table->timestamps();
         });
     }

@@ -7,6 +7,11 @@ use Livewire\Component;
 class ProductImport extends Component
 {
 
+    public function check()
+    {
+        
+    }
+
     public function render()
     {
         return view('livewire.admin.product-import');

@@ -1,6 +1,6 @@
 <div>
     <div class="flex flex-wrap w-full mb-4">
-        <div class="w-full mx-auto md:w-6/12 mb-4 md:mb-0">
+        <div class="w-full mx-auto mb-4 md:w-6/12 md:mb-0">
             <x-jet-input wire:model.debounce.300ms="search" type="text"
                 class="flex-1 block w-full border-gray-300 rounded-md focus:ring-emerald-400 focus:border-emerald-400 sm:text-sm"
                 placeholder="Search users..." />
@@ -39,7 +39,7 @@
     @if ($inventories->count())
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-md  text-gray-700 uppercase bg-emerald-200 ">
+                <thead class="text-gray-700 uppercase text-md bg-emerald-200 ">
                     <tr>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
                             {{ __('Name') }}
@@ -77,7 +77,7 @@
                                 {{ $itemInven->created_at->diffForHumans() }}</td>
                             <td class="px-6 py-3">
                                 <div class="flex justify-center item-center">
-                                    <a wire:click="showInventory({{ $itemInven }})">
+                                    <a href="{{ route('admin.inventories.show', $itemInven) }}">
                                         <button class="w-4 mr-2 transform hover:text-purple-500 hover:scale-150">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke="currentColor">
@@ -88,16 +88,7 @@
                                             </svg>
                                         </button>
                                     </a>
-                                    {{-- @livewire('admin.edit-inventory', ['inventory' => $inventory], key($inventory->id)) --}}
-                                    <a wire:click="editInventory({{ $itemInven }})">
-                                        <button class="w-4 mr-2 transform hover:text-blue-500 hover:scale-150">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                            </svg>
-                                        </button>
-                                    </a>
+                                    @livewire('admin.edit-inventory', ['inventory' => $itemInven], key($itemInven->id))
                                     <a wire:click="$emit('deleteInventory',{{ $itemInven->id }})">
                                         <button class="w-4 mr-2 transform hover:text-red-500 hover:scale-150">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -119,49 +110,10 @@
         @endif
     @else
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <p class="w-full text-left  bg-emerald-300 text-gray-600 px-6 py-4 text-lg">No users found</p>
+            <p class="w-full px-6 py-4 text-lg text-left text-gray-600 bg-emerald-300">No users found</p>
         </div>
     @endif
 </div>
-
-{{-- MODAL --}}
-<x-jet-dialog-modal wire:model="open_edit">
-    <x-slot name="title">
-        {{ __('Edit') }}
-    </x-slot>
-    <x-slot name="content">
-        <div class="mb-4">
-            <x-jet-label value="{{ __('Name') }}" />
-            <x-jet-input wire:model="inventory.name" class="w-full" type="text" />
-            @error('inventory.name')
-                <x-jet-input-error for="inventory.name" />
-            @enderror
-        </div>
-        <div class="mb-4">
-            <x-jet-label value="{{ __('Barcode') }}" />
-            <x-jet-input wire:model="inventory.barcode" class="w-full" type="text" />
-            @error('barcode')
-                <x-jet-input-error for="barcode" />
-            @enderror
-        </div>
-        <div class="mb-4">
-            <x-jet-label value="{{ __('Status') }}" />
-            <x-jet-input wire:model="inventory.status" class="w-full" type="text" />
-            @error('status')
-                <x-jet-input-error for="status" />
-            @enderror
-        </div>
-    </x-slot>
-    <x-slot name="footer">
-        <x-jet-danger-button wire:click="$set('open_edit',false)" class="mr-2">
-            {{ __('Close') }}
-        </x-jet-danger-button>
-        <x-jet-danger-button wire:click="updateInventory" wire:loading.remove wire:target='updateInventory'>
-            {{ __('Update') }}
-        </x-jet-danger-button>
-        <span wire:loading wire:target='updateInventory'>{{ __('Loading') . '....' }}</span>
-    </x-slot>
-</x-jet-dialog-modal>
 
 @push('js')
     <script>
@@ -172,17 +124,15 @@
                 'success',
             );
         });
-    </script>
-    <script>
+
         Livewire.on('edit', function() {
             Swal.fire(
                 `{{ __('Edited Successfully') }}`,
-                `{{ __('A') }}`,
+                `{{ __('') }}`,
                 'success',
             );
         });
-    </script>
-    <script>
+
         Livewire.on('deleteInventory', inventoryId => {
             Swal.fire({
                 title: `{{ __('Are you sure?') }}`,

@@ -41,7 +41,7 @@
     @if ($users->count())
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-md  text-gray-700 uppercase bg-emerald-200 ">
+                <thead class="text-gray-700 uppercase text-md bg-emerald-200 ">
                     <tr>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
                             {{ __('user') }}
@@ -53,7 +53,7 @@
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
                             Email</th>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
-                            Created At
+                            ID
                         </th>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
                             Accions
@@ -76,7 +76,7 @@
                                 {{ $user->email }}</td>
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $user->created_at->diffForHumans() }}</td>
+                                {{ $user->id }}</td>
                             <td class="px-6 py-3 text-center">
                                 <div class="flex justify-center item-center">
                                     <a>
@@ -118,7 +118,7 @@
         {!! $users->links() !!}
     @else
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <p class="w-full text-left  bg-emerald-300 text-gray-600 px-6 py-4 text-lg">No users found</p>
+            <p class="w-full px-6 py-4 text-lg text-left text-gray-600 bg-emerald-300">No users found</p>
         </div>
     @endif
 

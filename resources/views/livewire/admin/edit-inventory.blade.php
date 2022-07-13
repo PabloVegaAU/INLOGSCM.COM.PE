@@ -5,7 +5,6 @@
                 d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
         </svg>
     </button>
-
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
             {{ __('Edit') . ' ' . $inventory->code }}
@@ -20,9 +19,18 @@
             </div>
             <div class="mb-4">
                 <x-jet-label value="{{ __('Operator') }}" />
-                <x-jet-input wire:model="inventory.operator" class="w-full" type="text" />
-                @error('operator')
-                    <x-jet-input-error for="operator" />
+                <select id="user_id"
+                    class="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    name="user_id" wire:model="inventory.user_id">
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}"
+                            {{ $this->inventory->user->id == $user->id ? 'selected' : '' }}>
+                            {{ $user->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('inventory.operator')
+                    <x-jet-input-error for="inventory.operator" />
                 @enderror
             </div>
             <div class="mb-4">

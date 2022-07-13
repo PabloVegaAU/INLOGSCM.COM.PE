@@ -198,8 +198,7 @@ return [
         App\Providers\JetstreamServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Laraveles\Spanish\SpanishServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
-
+        Maatwebsite\Excel\ExcelServiceProvider::class
     ],
 
     /*
@@ -215,7 +214,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class
     ])->toArray(),
 
 ];

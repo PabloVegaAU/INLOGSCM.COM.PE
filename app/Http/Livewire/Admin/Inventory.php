@@ -18,12 +18,6 @@ class Inventory extends Component
 
     /* EDITING */
     public $open_edit = false;
-    protected $rules = [
-        'inventory.code' => 'required|max:100',
-        'inventory.ubication' => 'required|max:100',
-        'inventory.barcode' => 'required|max:100',
-        'inventory.status' => 'required|max:100',
-    ];
 
     public function delete(ModelsInventory $inventory)
     {
