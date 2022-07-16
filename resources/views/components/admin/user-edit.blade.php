@@ -5,8 +5,8 @@
         @method('PUT')
         <div>
             <x-jet-label for="name" value="{{ __('Username') }}" />
-            <x-jet-input id="name" class="block w-full mt-1" type="text" name="name" :value="$user->name" autofocus
-                autocomplete="off" />
+            <x-jet-input id="name" class="block w-full mt-1" type="text" name="name" :value="$user->name"
+                autofocus autocomplete="off" />
             <x-jet-input-error for="name" />
         </div>
 

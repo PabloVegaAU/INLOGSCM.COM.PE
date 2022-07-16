@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Operario;
 
 use App\Models\Inventory;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
-class ProductImport extends Component
+
+class ProdImport extends Component
 {
     use WithPagination;
     public $inventory;
@@ -15,7 +16,6 @@ class ProductImport extends Component
         "barcode.required" => "Ingrese un codigo de barras para verificación de stock",
         "barcode.exists" => "El codigo de barra ingresado no existe"
     ];
-    protected $listeners = ['render'];
 
 
     public function check()
@@ -55,10 +55,14 @@ class ProductImport extends Component
         $item->update(["checked" => 0]);
     }
 
-
     public function render()
     {
+
+        // $products = Product::where('inventory_id', $this->inventory->id)->paginate(10);
         $products = Product::where('inventory_id', $this->inventory->id)->paginate(10);
-        return view('livewire.admin.product-import', compact("products"));
+        return view('livewire.operario.prod-import', compact("products"));
     }
+
+
+
 }

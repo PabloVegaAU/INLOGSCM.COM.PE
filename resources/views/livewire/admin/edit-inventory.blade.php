@@ -35,11 +35,31 @@
             </div>
             <div class="mb-4">
                 <x-jet-label value="{{ __('Status') }}" />
-                <x-jet-input wire:model="inventory.status" class="w-full" type="text" />
+                <select id="status"
+                    class="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    name="status" wire:model="inventory.status">
+                        <option value="done" {{ $this->inventory->user->id == "done" ? 'selected' : '' }}>
+                            done
+                        </option>
+                        <option value="not yet" {{ $this->inventory->user->id == "not yet" ? 'selected' : '' }}>
+                            not yet
+                        </option>
+                        <option value="process" {{ $this->inventory->user->id == "process" ? 'selected' : '' }}>
+                            process
+                        </option>
+                </select>
                 @error('status')
                     <x-jet-input-error for="status" />
                 @enderror
             </div>
+
+            {{-- <div class="mb-4">
+                <x-jet-label value="{{ __('Status') }}" />
+                <x-jet-input wire:model="inventory.status" class="w-full" type="text" />
+                @error('status')
+                    <x-jet-input-error for="status" />
+                @enderror
+            </div> --}}
         </x-slot>
         <x-slot name="footer">
             <x-jet-danger-button wire:click="$set('open',false)" class="mr-2">

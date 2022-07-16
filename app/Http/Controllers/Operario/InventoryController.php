@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Operario;
 
 use App\Http\Controllers\Controller;
-use App\Imports\ProductImport;
-use App\Models\Inventory;
-use App\Models\Product;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
-
+use App\Models\Inventory;
 class InventoryController extends Controller
 {
     /**
@@ -18,8 +14,7 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $inventories = Inventory::all();
-        return view('admin.inventory.index', compact('inventories'));
+        return view("operario.index");
     }
 
     /**
@@ -40,34 +35,28 @@ class InventoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'file' => 'required|mimes:csv,xls,xlsx'
-        ]);
-        $file = $request->file('file');
-        Excel::import(new ProductImport, $file);
-        return redirect()->route('admin.inventories.index')->with('success', 'Existo');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Inventory  $inventory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Inventory $inventory)
+    public function show($id)
     {
-        // $products = Product::where('inventory_id', $inventory->id)->paginate();
-        // $products = Product::where('inventory_id', $inventory->id)->get();
-        return view('admin.inventory.show', compact('inventory'));
+        $inventory = Inventory::findOrFail($id);
+        return view('operario.show', compact("inventory"));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Inventory  $inventory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Inventory $inventory)
+    public function edit($id)
     {
         //
     }
@@ -76,10 +65,10 @@ class InventoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Inventory  $inventory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Inventory $inventory)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -87,10 +76,10 @@ class InventoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Inventory  $inventory
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Inventory $inventory)
+    public function destroy($id)
     {
         //
     }

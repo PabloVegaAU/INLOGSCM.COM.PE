@@ -7,7 +7,7 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-between">
-            <a href="{{ route('admin.inventories.index') }}"
+            <a href="{{ route('operario.inventories.index') }}"
                 class="uppercase px-4 py-2 mb-4 text-white transition duration-500 border rounded-md select-none bg-emerald-400 ease hover:bg-emerald-600 focus:outline-none focus:shadow-outline focus:border-emerald-300 focus:ring focus:ring-emerald-200">
                 {{ __('back') }}
             </a>
@@ -78,7 +78,6 @@
                                 @if ($product->inventory->status != 'done')
                                 <td class="px-6 py-4 text-sm font-light text-gray-900 whitespace-wrap">
                                     <div class="flex justify-center item-center">
-                                            @livewire('admin.edit-product', ['product' => $product], key($product->id))
                                             <button wire:click="stock_reset({{ $product->id }})"
                                                 class="w-4 mr-2 transform hover:text-blue-500 hover:scale-150">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -110,3 +109,4 @@
         @endif
     </div>
 </div>
+

@@ -4,7 +4,7 @@ use App\Http\Controllers\admin\InventoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Operario\InventoryController as OpInvController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
 Route::resource('/users', UserController::class)->names('admin.users');
 Route::resource('/inventory', InventoryController::class)->names('admin.inventories');
-
+Route::resource('/operario', OpInvController::class)->names('operario.inventories');
 //ADMIN CONTROLLER
 Route::group(['middleware' => ['can:cms']], function () {
 });
