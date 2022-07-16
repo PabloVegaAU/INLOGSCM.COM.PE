@@ -48,6 +48,7 @@
 
 
     <div class="p-3 md:p-12 rounded-full bg-emerald-100 hover:bg-emerald-200 mb-4">
+        <a href="{{ route('operario.done.index')}}">
         <div class="flex flex-row">
             <div class="mr-5">
                 <img src="{{ asset('storage/images/logo.png') }}" class="w-28 h-28" alt="">

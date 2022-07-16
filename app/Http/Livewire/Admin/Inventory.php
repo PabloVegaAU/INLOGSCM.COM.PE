@@ -24,10 +24,7 @@ class Inventory extends Component
         $inventory->delete();
     }
 
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
+
 
     public function render()
     {
@@ -37,20 +34,8 @@ class Inventory extends Component
         return view('livewire.admin.inventory', compact('inventories'));
     }
 
-    public function editInventory(ModelsInventory $inventory)
-    {
-        $this->inventory = $inventory;
-        $this->open_edit = true;
-    }
 
-    public function updateInventory(ModelsInventory $inventory)
-    {
-        $this->validate();
-        $this->inventory->save();
-        $this->reset('open_edit');
-        $this->emit('render');
-        $this->emit('edit');
-    }
+
 
     public function showInventory(ModelsInventory $inventory)
     {
