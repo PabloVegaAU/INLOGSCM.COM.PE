@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Inventory;
+use App\Models\User;
 use Livewire\Component;
 
 class AddInventory extends Component
@@ -13,6 +14,7 @@ class AddInventory extends Component
 
     protected $rules = [
         'name' => 'required|unique:inventories|max:100',
+        'user_id' => 'required|max:100',
     ];
 
     public function updated($propertyName)
@@ -46,6 +48,7 @@ class AddInventory extends Component
 
     public function render()
     {
-        return view('livewire.admin.add-inventory');
+        $users = User::where('type', 'operario')->get();
+        return view('livewire.admin.add-inventory', compact('users'));
     }
 }

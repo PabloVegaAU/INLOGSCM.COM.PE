@@ -3,7 +3,7 @@
         <div class="w-full mx-auto mb-4 md:w-6/12 md:mb-0">
             <x-jet-input wire:model.debounce.300ms="search" type="text"
                 class="flex-1 block w-full border-gray-300 rounded-md focus:ring-emerald-400 focus:border-emerald-400 sm:text-sm"
-                placeholder="Search users..." />
+                placeholder="Search Inventory..." />
         </div>
         <div class="relative w-4/12 mx-auto md:w-2/12 md:mb-0">
             <select wire:model="orderBy"
@@ -64,7 +64,7 @@
                                 {{ $itemInven->name }}</td>
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $itemInven->user->realname . " " . $itemInven->user->realsurname }}
+                                {{ $itemInven->user->realname . ' ' . $itemInven->user->realsurname }}
                             </td>
 
                             <td
@@ -109,7 +109,9 @@
         @endif
     @else
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <p class="w-full px-6 py-4 text-lg text-left text-gray-600 bg-emerald-300">No users found</p>
+            <p class="w-full px-6 py-4 text-lg text-left text-gray-600 bg-emerald-300">
+                {{ __('No Inventories found') }}
+            </p>
         </div>
     @endif
 </div>

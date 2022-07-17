@@ -25,7 +25,6 @@ class Inventory extends Component
     }
 
 
-
     public function render()
     {
         $inventories = ModelsInventory::search($this->search)
@@ -33,8 +32,6 @@ class Inventory extends Component
             ->Paginate($this->perPage);
         return view('livewire.admin.inventory', compact('inventories'));
     }
-
-
 
 
     public function showInventory(ModelsInventory $inventory)

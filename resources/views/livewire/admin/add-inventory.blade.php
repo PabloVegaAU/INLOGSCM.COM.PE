@@ -35,10 +35,20 @@
                 @enderror
             </div>
             <div class="mb-4">
-                <x-jet-label value="{{ __('user_id') }}" />
-                <x-jet-input class="w-full" type="text" wire:model='user_id' />
-                @error('user_id')
-                    <x-jet-input-error for="user_id" />
+                <x-jet-label value="{{ __('Operator') }}" />
+                <select id="user_id"
+                    class="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    name="user_id" wire:model="user_id">
+                    <option value="" hidden>
+                    </option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}">
+                            {{ $user->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('inventory.operator')
+                    <x-jet-input-error for="inventory.operator" />
                 @enderror
             </div>
             {{-- <div class="mb-4">
@@ -74,9 +84,9 @@
             <x-jet-danger-button wire:click="$set('open',false)" class="mr-2">
                 {{ __('Close') }}
             </x-jet-danger-button>
-            <x-jet-danger-button wire:click="save" wire:loading.remove wire:target='save'>
+            <x-jet-secondary-button wire:click="save" wire:loading.remove wire:target='save'>
                 {{ __('Create') }}
-            </x-jet-danger-button>
+            </x-jet-secondary-button>
             <span wire:loading wire:target='save'>{{ __('Loading') . '....' }}</span>
         </x-slot>
     </x-jet-dialog-modal>

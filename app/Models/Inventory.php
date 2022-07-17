@@ -29,10 +29,9 @@ class Inventory extends Model
         return empty($search) ? static::query()
             : static::query()->where('status', 'like', '%' . $search . '%')
             ->orWhere('name', 'like', '%' . $search . '%')
-            ->orWhereHas('User', function(Builder $query) use ($search){
-                $query->where('name', 'like', '%' . $search . '%')
-                        ->orWhere('realname', 'like', '%' . $search . '%')
-                        ->orWhere('realsurname', 'like', '%' . $search . '%');
+            ->orWhereHas('User', function (Builder $query) use ($search) {
+                $query->where('realname', 'like', '%' . $search . '%')
+                    ->orWhere('realsurname', 'like', '%' . $search . '%');
             });
     }
 }
