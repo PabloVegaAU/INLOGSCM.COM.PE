@@ -21,20 +21,20 @@
                     class="uppercase px-4 py-2 mb-4 text-white transition duration-500 border rounded-md select-none bg-orange-400 ease hover:bg-orange-500 focus:outline-none focus:shadow-outline focus:border-orange-300 focus:ring focus:ring-orange-200">
                     {{ __('Done Inv') }}
                 </a>
-                @endif
-            </div>
-            @error('inv')
-                <x-jet-input-error for="inv" />
-            @enderror
+            @endif
+        </div>
+        @error('inv')
+            <x-jet-input-error for="inv" />
+        @enderror
 
         @if ($products[0]->inventory->status != 'done')
-        <div class="mt-4">
-            <x-jet-label value="{{ __('Barcode') }}" />
-            <x-jet-input class="w-full" type="text" wire:model='barcode' wire:poll.2000ms="check" />
-            @error('barcode')
-                <x-jet-input-error for="barcode" />
-            @enderror
-        </div>
+            <div class="mt-4">
+                <x-jet-label value="{{ __('Barcode') }}" />
+                <x-jet-input class="w-full" type="text" wire:model='barcode' wire:poll.2000ms="check" />
+                @error('barcode')
+                    <x-jet-input-error for="barcode" />
+                @enderror
+            </div>
         @endif
         @if (session('success'))
             <div
@@ -76,8 +76,8 @@
                                 <td class="px-6 py-4 text-sm font-light text-gray-900 whitespace-wrap">
                                     {{ $product->stock }}/{{ $product->checked }}</td>
                                 @if ($product->inventory->status != 'done')
-                                <td class="px-6 py-4 text-sm font-light text-gray-900 whitespace-wrap">
-                                    <div class="flex justify-center item-center">
+                                    <td class="px-6 py-4 text-sm font-light text-gray-900 whitespace-wrap">
+                                        <div class="flex justify-center item-center">
                                             @livewire('admin.edit-product', ['product' => $product], key($product->id))
                                             <button wire:click="stock_reset({{ $product->id }})"
                                                 class="w-4 mr-2 transform hover:text-blue-500 hover:scale-150">
@@ -90,23 +90,23 @@
                                                         d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z" />
                                                 </svg>
                                             </button>
-                                        @endif
+                                @endif
 
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
             </div>
-
-            @if ($products->hasPages())
-                {!! $products->links() !!}
-            @endif
-        @else
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <p class="w-full px-6 py-4 text-lg text-left text-gray-600 bg-emerald-300">No users found</p>
-            </div>
-        @endif
+            </td>
+            </tr>
+        @endforeach
+        </tbody>
+        </table>
     </div>
+
+    @if ($products->hasPages())
+        {!! $products->links() !!}
+    @endif
+@else
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <p class="w-full px-6 py-4 text-lg text-left text-gray-600 bg-emerald-300">No users found</p>
+    </div>
+    @endif
+</div>
 </div>
