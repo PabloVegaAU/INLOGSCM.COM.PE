@@ -104,23 +104,23 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <!-- Account Management -->
-                                <div class="block px-4 py-2 text-xs text-gray-400">
-                                    {{ __('Manage Account') }}
-                                </div>
+                                @if (Auth::user()->type == 'admin')
+                                    <!-- Account Management -->
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        {{ __('Manage Account') }}
+                                    </div>
 
-                                <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                    {{ __('Profile') }}
-                                </x-jet-dropdown-link>
-
-                                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                    <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
-                                        {{ __('API Tokens') }}
+                                    <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                        {{ __('Profile') }}
                                     </x-jet-dropdown-link>
+
+                                    @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                                        <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
+                                            {{ __('API Tokens') }}
+                                        </x-jet-dropdown-link>
+                                    @endif
+                                    <div class="border-t border-gray-100"></div>
                                 @endif
-
-                                <div class="border-t border-gray-100"></div>
-
                                 <!-- Authentication -->
                                 <form method="POST" action="{{ route('logout') }}" x-data>
                                     @csrf
@@ -143,8 +143,8 @@
                         <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
@@ -178,16 +178,17 @@
 
                 <div class="mt-3 space-y-1">
                     <!-- Account Management -->
-                    <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                        {{ __('Profile') }}
-                    </x-jet-responsive-nav-link>
-
-                    @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                        <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
-                            {{ __('API Tokens') }}
+                    @if (Auth::user()->type == 'admin')
+                        <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                            {{ __('Profile') }}
                         </x-jet-responsive-nav-link>
-                    @endif
 
+                        @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                            <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
+                                {{ __('API Tokens') }}
+                            </x-jet-responsive-nav-link>
+                        @endif
+                    @endif
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf

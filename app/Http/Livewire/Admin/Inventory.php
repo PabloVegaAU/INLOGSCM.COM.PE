@@ -8,28 +8,34 @@ use Livewire\WithPagination;
 
 class Inventory extends Component
 {
+    /* SEARCH INVENTARIES */
     use WithPagination;
     public $perPage = 10;
-    public $search = '';
+    public $search, $inventory;
     public $orderBy = 'id';
     public $orderAsc = true;
     protected $listeners = ['render', 'delete'];
+
+    /* EDITING */
+    public $open_edit = false;
 
     public function delete(ModelsInventory $inventory)
     {
         $inventory->delete();
     }
 
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
 
     public function render()
     {
         $inventories = ModelsInventory::search($this->search)
             ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
-            ->simplePaginate($this->perPage);
+            ->Paginate($this->perPage);
         return view('livewire.admin.inventory', compact('inventories'));
+    }
+
+
+    public function showInventory(ModelsInventory $inventory)
+    {
+        return view('livewire.admin.product-import', compact('inventory'));
     }
 }

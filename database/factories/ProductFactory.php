@@ -17,7 +17,12 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'ubication' => $this->faker->name(),
+            'barcode' => $this->faker->ean13(),
+            'code' => "SG-" . $this->faker->randomDigit(7) . "-" . $this->faker->randomDigit(7),
+            'ubication' => $this->faker->lastName(),
+            'description' => $this->faker->text(),
+            'stock' => $this->faker->randomDigit(),
         ];
     }
 }

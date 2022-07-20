@@ -5,15 +5,15 @@
         @method('PUT')
         <div>
             <x-jet-label for="name" value="{{ __('Username') }}" />
-            <x-jet-input id="name" class="block w-full mt-1" type="text" name="name" :value="$user->name" autofocus
-                autocomplete="off" />
+            <x-jet-input id="name" class="block w-full mt-1" type="text" name="name" :value="$user->name"
+                autofocus autocomplete="off" />
             <x-jet-input-error for="name" />
         </div>
 
         <div class="mt-4">
             <x-jet-label for="realname" value="{{ __('Name') }}" />
-            <x-jet-input id="realname" class="block w-full mt-1" type="text" name="realname" :value="$user->realname" required
-                autofocus autocomplete="off" />
+            <x-jet-input id="realname" class="block w-full mt-1" type="text" name="realname" :value="$user->realname"
+                required autofocus autocomplete="off" />
             <x-jet-input-error for="realname" />
         </div>
 
@@ -26,8 +26,8 @@
 
         <div class="mt-4">
             <x-jet-label for="email" value="{{ __('Email') }}" />
-            <x-jet-input id="email" class="block w-full mt-1" type="email" name="email" :value="$user->email" autofocus
-                autocomplete="off" />
+            <x-jet-input id="email" class="block w-full mt-1" type="email" name="email" :value="$user->email"
+                autofocus autocomplete="off" />
             <x-jet-input-error for="email" />
         </div>
 
