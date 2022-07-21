@@ -17,15 +17,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory()->create([
-            'name' => 'user',
+            'name' => 'PCVV2022',
             'type' => 'admin',
             'realname' => 'realname',
             'realsurname' => 'realsurname',
-            'email' => 'user@example.com',
-            'password' => bcrypt('123'),
+            'email' => 'admin@inlog.com',
+            'password' => bcrypt('passwordinlog'),
         ]);
 
-        $users = User::factory(9)->create();
+        /* $users = User::factory(9)->create();
         foreach ($users as $user) {
             $inventories = Inventory::factory(3)->create(['user_id' => $user->id]);
             foreach ($inventories as $inventory) {
@@ -35,6 +35,6 @@ class DatabaseSeeder extends Seeder
                     ]
                 );
             }
-        }
+        } */
     }
 }
