@@ -1,18 +1,22 @@
 <div>
     <div class="flex flex-wrap w-full mb-4">
-        <div class="w-full mx-auto mb-4 md:w-6/12 md:mb-0">
+        <div class="w-full mx-auto md:w-6/12 mb-4 md:mb-0">
             <x-jet-input wire:model.debounce.300ms="search" type="text"
                 class="flex-1 block w-full border-gray-300 rounded-md focus:ring-emerald-400 focus:border-emerald-400 sm:text-sm"
-                placeholder="Search Inventory..." />
+                placeholder="Search users..." />
+
         </div>
         <div class="relative w-4/12 mx-auto md:w-2/12 md:mb-0">
             <select wire:model="orderBy"
                 class="block w-full px-3 py-2 capitalize bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-400 focus:border-emerald-400 sm:text-sm"
                 id="grid-state">
-                <option class="capitalize" value="name">{{ __('inventory') }}</option>
-                <option class="capitalize" value="status">{{ __('status') }}</option>
+                <option class="capitalize" value="name">{{ __('user') }}</option>
+                <option class="capitalize" value="realname">{{ __('Name') }}</option>
+                <option class="capitalize" value="realsurname">{{ __('surname') }}</option>
+                <option class="capitalize" value="email">Email</option>
                 <option class="capitalize" value="created_at">Sign Up Date</option>
             </select>
+
         </div>
         <div class="relative w-4/12 mx-1 md:w-2/12">
             <select wire:model="orderAsc"
@@ -37,46 +41,50 @@
     @if ($inventories->count())
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-gray-700 uppercase text-md bg-emerald-200 ">
+                <thead class="text-md  text-gray-700 uppercase bg-emerald-200 ">
                     <tr>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
-                            {{ __('Inventory') }}
+                            {{ __('code') }}
                         </th>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
-                            {{ __('Operator') }}
+                            {{ __('ubication') }}
+                        </th>
+                        <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
+                            {{ __('barcode') }}
                         </th>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
                             {{ __('status') }}
+                        <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
+                            Created At
                         </th>
                         <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
-                            {{ __('Created At') }}
-                        </th>
-                        <th scope="col" class="px-6 py-4 text-sm font-bold text-left text-gray-900">
-                            {{ __('Accions') }}
+                            Accions
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($inventories as $itemInven)
+                    @foreach ($inventories as $inventory)
                         <tr class="transition duration-300 ease-in-out bg-white border-b hover:bg-gray-100">
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $itemInven->name }}</td>
+                                {{ $inventory->code }}</td>
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $itemInven->user->realname . ' ' . $itemInven->user->realsurname }}
-                            </td>
-
-                            <td
-                                class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $itemInven->status }}
+                                {{ $inventory->ubication }}
                             </td>
                             <td
                                 class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
-                                {{ $itemInven->created_at->diffForHumans() }}</td>
+                                {{ $inventory->barcode }}
+                            </td>
+                            <td
+                                class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
+                                {{ $inventory->status }}</td>
+                            <td
+                                class="px-6 py-4 text-sm font-light text-gray-900 md:whitespace-normal whitespace-nowrap">
+                                {{ $inventory->created_at->diffForHumans() }}</td>
                             <td class="px-6 py-3">
                                 <div class="flex justify-center item-center">
-                                    <a href="{{ route('admin.inventories.show', $itemInven) }}">
+                                    <a href="{{ route('admin.inventories.show', $inventory) }}">
                                         <button class="w-4 mr-2 transform hover:text-purple-500 hover:scale-150">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke="currentColor">
@@ -87,8 +95,8 @@
                                             </svg>
                                         </button>
                                     </a>
-                                    @livewire('admin.edit-inventory', ['inventory' => $itemInven], key($itemInven->id))
-                                    <a wire:click="$emit('deleteInventory',{{ $itemInven->id }})">
+                                    @livewire('admin.edit-inventory', ['inventory' => $inventory], key($inventory->id))
+                                    <a wire:click="$emit('deleteInventory',{{ $inventory->id }})">
                                         <button class="w-4 mr-2 transform hover:text-red-500 hover:scale-150">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke="currentColor">
@@ -104,16 +112,13 @@
                 </tbody>
             </table>
         </div>
-        @if ($inventories->hasPages())
-            {!! $inventories->links() !!}
-        @endif
+        {!! $inventories->links() !!}
     @else
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <p class="w-full px-6 py-4 text-lg text-left text-gray-600 bg-emerald-300">
-                {{ __('No Inventories found') }}
-            </p>
+            <p class="w-full text-left  bg-emerald-300 text-gray-600 px-6 py-4 text-lg">No users found</p>
         </div>
     @endif
+
 </div>
 
 @push('js')
@@ -121,19 +126,21 @@
         Livewire.on('add', function() {
             Swal.fire(
                 `{{ __('Created Successfully') }}`,
-                `{{ __('A') }}`,
-                'success',
-            );
-        });
-
-        Livewire.on('edit', function() {
-            Swal.fire(
-                `{{ __('Edited Successfully') }}`,
                 `{{ __('') }}`,
                 'success',
             );
         });
-
+    </script>
+    <script>
+        Livewire.on('edit', function() {
+            Swal.fire(
+                `{{ __('Edited Successfully') }}`,
+                `{{ __('A') }}`,
+                'success',
+            );
+        });
+    </script>
+    <script>
         Livewire.on('deleteInventory', inventoryId => {
             Swal.fire({
                 title: `{{ __('Are you sure?') }}`,
